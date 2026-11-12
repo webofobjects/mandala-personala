@@ -1,0 +1,73 @@
+---
+import { Picture } from 'astro:assets';
+import { simboluri } from '../data/continut';
+import { detaliu } from '../data/lucrari';
+import { accent } from '../lib/text';
+---
+
+<section id="simboluri" class="bg-night py-20 text-paper lg:py-28" aria-labelledby="titlu-simboluri">
+  <div class="wrap">
+    <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+      <div class="lg:col-span-7">
+        <h2 id="titlu-simboluri" class="text-title !text-paper" set:html={accent(simboluri.titlu)} />
+      </div>
+      <p class="max-w-[32rem] text-paper/75 lg:col-span-5 lg:justify-self-end" set:html={accent(simboluri.intro)} />
+    </div>
+
+    <!-- pe telefon: un rând care se glisează; de la 640px: grilă -->
+    <ul
+      role="list"
+      class="-mx-5 mt-10 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 pb-3 sm:mx-0 sm:mt-14 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:gap-y-12 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 xl:gap-x-10"
+    >
+      {
+        simboluri.lista.map((s) => (
+          <li class="flex w-[9rem] shrink-0 snap-start flex-col items-start sm:w-auto">
+            <Picture
+              src={detaliu(s.imagine)}
+              formats={['avif']}
+              fallbackFormat="webp"
+              quality={62}
+              widths={[160, 240, 320]}
+              sizes="(min-width: 1024px) 8.5rem, 7rem"
+              alt=""
+              loading="lazy"
+              class="size-28 rounded-full object-cover ring-1 ring-gold/40 ring-offset-4 ring-offset-night lg:size-34"
+            />
+            <h3 class="mt-5 text-[1.35rem] leading-tight !text-gold-light">{s.nume}</h3>
+            <p class="mt-2 text-[0.95rem] leading-relaxed text-paper/70" set:html={accent(s.sens)} />
+          </li>
+        ))
+      }
+      <li class="flex w-[9rem] shrink-0 snap-start flex-col items-start sm:w-auto">
+        <span
+          class="flex size-28 items-center justify-center rounded-full border-2 border-dotted border-gold-light/60 font-display text-4xl text-gold-light lg:size-34"
+          aria-hidden="true">+</span
+        >
+        <h3 class="mt-5 text-[1.35rem] leading-tight !text-gold-light">
+          <a href="#contact" class="underline decoration-gold-light/40 underline-offset-4 hover:decoration-gold-light">{simboluri.alTau.nume}</a>
+        </h3>
+        <p class="mt-2 text-[0.95rem] leading-relaxed text-paper/70" set:html={accent(simboluri.alTau.sens)} />
+      </li>
+    </ul>
+
+    <div class="mt-20 border-t border-white/10 pt-12">
+      <h3 class="text-[1.6rem] !text-paper" set:html={accent(simboluri.culoriTitlu)} />
+      <ul role="list" class="mt-8 grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 lg:grid-cols-6">
+        {
+          simboluri.culori.map((c) => (
+            <li class="flex items-center gap-4">
+              <span class="relative inline-flex size-12 shrink-0 items-center justify-center" aria-hidden="true">
+                <span class="absolute inset-0 rounded-full opacity-30" style={`background:${c.hex}`} />
+                <span class="size-6 rounded-full shadow-[inset_0_-3px_4px_rgba(0,0,0,.25),inset_0_2px_3px_rgba(255,255,255,.35)]" style={`background:${c.hex}`} />
+              </span>
+              <span>
+                <span class="block font-display text-lg leading-tight text-paper">{c.nume}</span>
+                <span class="block text-sm leading-snug text-paper/65">{c.sens}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

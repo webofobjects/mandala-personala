@@ -1,0 +1,37 @@
+---
+// Semnul site-ului: o mandala mică, făcută doar din puncte, ca pe pânză.
+interface Props {
+  size?: number;
+  class?: string;
+  title?: string;
+}
+const { size = 40, class: cls = '', title } = Astro.props;
+
+const c = 32;
+const f = (n: number) => +n.toFixed(2);
+const ring = (n: number, R: number, r: number, fill: string, off = 0) =>
+  Array.from({ length: n }, (_, i) => {
+    const a = (i / n) * 2 * Math.PI + off - Math.PI / 2;
+    return { cx: f(c + R * Math.cos(a)), cy: f(c + R * Math.sin(a)), r, fill };
+  });
+
+const dots = [
+  ...ring(18, 26.2, 1.9, '#c9a24c', Math.PI / 18),
+  ...ring(12, 19.2, 2.7, '#e8d39a'),
+  ...ring(6, 11, 3.7, '#d4a94a', Math.PI / 6),
+];
+---
+
+<svg
+  viewBox="0 0 64 64"
+  width={size}
+  height={size}
+  class={cls}
+  role={title ? 'img' : undefined}
+  aria-hidden={title ? undefined : 'true'}
+  aria-label={title}
+>
+  <circle cx="32" cy="32" r="32" fill="#15172c"></circle>
+  {dots.map((d) => <circle cx={d.cx} cy={d.cy} r={d.r} fill={d.fill} />)}
+  <circle cx="32" cy="32" r="5" fill="#b3263a"></circle>
+</svg>

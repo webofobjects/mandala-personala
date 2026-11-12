@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets';
+import DotHalo from './DotHalo.astro';
+import { pret } from '../data/continut';
+import { site, telHref } from '../data/site';
+import { lucrare } from '../data/lucrari';
+import { accent } from '../lib/text';
+
+const imagine = lucrare('samanta-vietii-albastru-regal');
+---
+
+<section id="pret" class="px-3 py-6 sm:px-5 lg:py-10" aria-labelledby="titlu-pret">
+  <div class="relative mx-auto max-w-[80rem] overflow-hidden rounded-[2px] bg-night text-paper">
+    <DotHalo class="pointer-events-none absolute -top-[30%] -right-[25%] h-auto w-[70rem] max-w-none opacity-[0.16] select-none" varianta="deschis" />
+
+    <div class="relative grid gap-12 px-6 py-16 sm:px-10 lg:grid-cols-12 lg:gap-16 lg:px-16 lg:py-24">
+      <div class="lg:col-span-6">
+        <h2 id="titlu-pret" class="text-title !text-paper" set:html={accent(pret.titlu)} />
+
+        <div class="mt-10 flex items-end gap-4">
+          <p class="font-display text-[clamp(4.5rem,3rem+6vw,7.5rem)] leading-[0.85] tracking-[-0.03em] text-gold-light">
+            {site.pret}
+          </p>
+          <p class="pb-2 font-display text-3xl italic text-gold-light">{site.moneda}</p>
+        </div>
+        <p class="mt-4 max-w-[26rem] text-lede text-paper/80">{pret.subtitlu}</p>
+
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href="#contact" class="btn btn-gold">{pret.cta}</a>
+          <a href={telHref} class="btn border-[1.5px] border-paper/40 text-paper tabular-nums hover:border-paper hover:bg-paper hover:text-night">{site.telefon}</a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-6">
+        <h3 class="text-xl !text-paper">{pret.includeTitlu}</h3>
+        <ul role="list" class="mt-6 grid gap-4">
+          {
+            pret.include.map((item) => (
+              <li class="flex gap-4 border-b border-white/10 pb-4 text-paper/85">
+                <span class="mt-[0.6rem] inline-block size-2 shrink-0 rounded-full bg-gold-light" aria-hidden="true" />
+                <span set:html={accent(item)} />
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-6 text-[0.95rem] text-paper/65" set:html={accent(pret.nota)} />
+
+        <div class="mt-10 hidden items-center gap-5 sm:flex">
+          <Image
+            src={imagine}
+            widths={[160, 240]}
+            sizes="7.5rem"
+            alt=""
+            loading="lazy"
+            class="size-30 shrink-0 object-cover shadow-[0_14px_30px_-12px_rgba(0,0,0,.7)]"
+          />
+          <p class="label !text-paper/70" set:html={accent(pret.imagineLegenda)} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

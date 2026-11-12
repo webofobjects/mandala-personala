@@ -1,0 +1,52 @@
+---
+import { Picture } from 'astro:assets';
+import Eticheta from './Eticheta.astro';
+import DotHalo from './DotHalo.astro';
+import { hero } from '../data/continut';
+import { pretAfisat } from '../data/site';
+import { lucrari, lucrare } from '../data/lucrari';
+import { accent } from '../lib/text';
+
+const slug = 'floarea-vietii-lotusi-roz';
+const imagine = lucrare(slug);
+const alt = lucrari.find((l) => l.slug === slug)?.alt ?? '';
+---
+
+<section class="relative overflow-x-clip" aria-labelledby="titlu-principal">
+  <div class="wrap grid items-center gap-x-12 gap-y-8 pt-8 pb-16 sm:pt-12 lg:grid-cols-12 lg:pt-14 lg:pb-24">
+    <div class="lg:col-span-6">
+      <Eticheta text={hero.eticheta} />
+      <h1 id="titlu-principal" class="mt-5 text-display" set:html={accent(hero.titlu)} />
+      <p class="mt-6 max-w-[34rem] text-lede text-ink-2">{hero.text}</p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <a href="#contact" class="btn btn-primary">{hero.ctaPrincipal}</a>
+        <a href="#lucrari" class="btn btn-ghost">{hero.ctaSecundar}</a>
+      </div>
+
+      <div class="mt-10 flex items-center gap-5 border-t border-line pt-6">
+        <p class="shrink-0 font-display text-[2.4rem] leading-none tracking-[-0.02em] text-ink">{pretAfisat}</p>
+        <p class="max-w-[17rem] text-[0.95rem] leading-snug text-ink-2" set:html={accent(hero.pretNota)} />
+      </div>
+    </div>
+
+    <figure class="relative order-first lg:order-none lg:col-span-6">
+      <div class="relative mx-auto max-w-[min(36rem,78vw)]">
+        <DotHalo class="pointer-events-none absolute top-1/2 left-1/2 h-auto w-[150%] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-45 select-none" eager />
+        <Picture
+          src={imagine}
+          formats={['avif', 'webp']}
+          widths={[480, 720, 960, 1200]}
+          sizes="(min-width: 1024px) min(36rem, 45vw), min(36rem, 78vw)"
+          alt={alt}
+          priority
+          class="relative block aspect-square w-full object-cover shadow-[0_1px_1px_rgba(30,20,10,.08),0_18px_30px_-12px_rgba(40,28,14,.35),0_50px_90px_-30px_rgba(40,28,14,.45)]"
+        />
+      </div>
+      <figcaption class="label mx-auto mt-4 flex max-w-[min(36rem,78vw)] items-center justify-end gap-2">
+        <span class="inline-block size-1.5 rounded-full bg-carmine" aria-hidden="true"></span>
+        {hero.legenda}
+      </figcaption>
+    </figure>
+  </div>
+</section>

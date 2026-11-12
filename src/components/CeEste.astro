@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import DotTrail from './DotTrail.astro';
+import { ceEste } from '../data/continut';
+import { detaliu } from '../data/lucrari';
+import { accent } from '../lib/text';
+
+const macro = detaliu('textura-centru-auriu');
+---
+
+<section id="ce-este" class="py-20 lg:py-28" aria-labelledby="titlu-ce-este">
+  <div class="wrap grid items-center gap-14 lg:grid-cols-12">
+    <div class="lg:col-span-6 lg:col-start-7 lg:row-start-1 xl:col-span-5 xl:col-start-8">
+      <h2 id="titlu-ce-este" class="text-title" set:html={accent(ceEste.titlu)} />
+      <div class="prose-ro mt-7 max-w-[36rem] text-ink-2">
+        {ceEste.paragrafe.map((p) => <p set:html={accent(p)} />)}
+      </div>
+      <ul role="list" class="mt-9 grid gap-3 border-t border-line pt-7">
+        {
+          ceEste.fapte.map((f) => (
+            <li class="flex items-baseline gap-4 text-ink">
+              <DotTrail count={3} class="shrink-0 translate-y-[-1px]" />
+              <span>{f}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <figure class="lg:col-span-6 lg:col-start-1 lg:row-start-1">
+      <div class="relative mx-auto aspect-square w-full max-w-[30rem]">
+        <div class="absolute inset-0 scale-[1.06] rounded-full border-[3px] border-dotted border-gold/70" aria-hidden="true"></div>
+        <Image
+          src={macro}
+          widths={[360, 540, 720, 900]}
+          sizes="(min-width: 1024px) 30rem, 86vw"
+          alt="Fotografie de aproape a centrului unei mandale: inele concentrice de puncte în relief, roșii, verzi, albe și aurii."
+          class="relative aspect-square w-full rounded-full object-cover shadow-[0_20px_50px_-24px_rgba(40,28,14,.55)]"
+          loading="lazy"
+        />
+      </div>
+      <figcaption class="label mx-auto mt-6 max-w-[30rem] text-center">{ceEste.detaliuLegenda}</figcaption>
+    </figure>
+  </div>
+</section>

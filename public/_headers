@@ -1,0 +1,10 @@
+# Pentru Netlify și Cloudflare Pages: fișierele din /_astro au nume unice, deci pot fi păstrate în cache un an.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/decor/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

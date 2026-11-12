@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import DotMark from '../components/DotMark.astro';
+import { site, telHref } from '../data/site';
+---
+
+<Base title={`Pagina nu există | ${site.domeniu}`} description="Pagina căutată nu există. Întoarce-te la mandalele personale pictate manual.">
+  <main id="continut" class="wrap flex min-h-dvh flex-col items-start justify-center py-20">
+    <DotMark size={56} />
+    <h1 class="mt-8 text-title">Aici nu e nimic de văzut</h1>
+    <p class="mt-5 max-w-[32rem] text-lede text-ink-2">Pagina pe care o cauți nu există sau a fost mutată. Mandalele sunt pe pagina principală.</p>
+    <div class="mt-9 flex flex-wrap gap-3">
+      <a href="/" class="btn btn-primary">Înapoi la pagina principală</a>
+      <a href={telHref} class="btn btn-ghost tabular-nums">{site.telefon}</a>
+    </div>
+  </main>
+</Base>

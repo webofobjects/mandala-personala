@@ -1,0 +1,114 @@
+---
+import DotMark from './DotMark.astro';
+import { nav } from '../data/continut';
+import { site, telHref } from '../data/site';
+---
+
+<header id="antet" class="sticky top-0 z-50 border-b border-transparent bg-paper/95 transition-colors duration-300 data-[scrolled=true]:border-line">
+  <div class="wrap flex h-[4.25rem] items-center justify-between gap-3 sm:gap-6">
+    <a href="#" class="flex min-w-0 items-center gap-2.5 no-underline sm:gap-3" aria-label={`${site.nume}, începutul paginii`}>
+      <DotMark size={32} class="shrink-0" />
+      <span class="font-display text-[1.2rem] leading-none tracking-[-0.01em] text-ink sm:text-[1.32rem]">
+        Mandala <span class="italic">personală</span>
+      </span>
+    </a>
+
+    <nav aria-label="Principal" class="hidden xl:block">
+      <ul class="flex items-center gap-7 text-[0.95rem] whitespace-nowrap text-ink-2">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class="transition-colors hover:text-ink">
+                {item.text}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex shrink-0 items-center gap-1 sm:gap-3">
+      <a href={telHref} class="hidden text-[0.95rem] font-semibold whitespace-nowrap tabular-nums text-ink md:inline">
+        {site.telefon}
+      </a>
+      <a href={telHref} class="inline-flex h-11 w-11 items-center justify-center rounded-full text-ink hover:bg-paper-2 md:hidden">
+        <span class="sr-only">Sună la {site.telefon}</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M6.6 3.5h2.6l1.4 4.1-1.9 1.3a12 12 0 0 0 6.4 6.4l1.3-1.9 4.1 1.4v2.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linejoin="round"></path>
+        </svg>
+      </a>
+      <a href="#contact" class="btn btn-primary hidden !min-h-[2.6rem] !px-5 !py-2 text-[0.95rem] sm:inline-flex">Comandă</a>
+      <button
+        type="button"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-full text-ink hover:bg-paper-2 xl:hidden"
+        aria-expanded="false"
+        aria-controls="meniu-mobil"
+        data-menu-toggle
+      >
+        <span class="sr-only">Meniu</span>
+        <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" class="menu-icon">
+          <circle cx="4" cy="7" r="1.8" fill="currentColor"></circle>
+          <path d="M9 7h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+          <circle cx="4" cy="15" r="1.8" fill="currentColor"></circle>
+          <path d="M9 15h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="meniu-mobil" class="hidden max-h-[calc(100dvh-4.25rem-1px)] overflow-y-auto overscroll-contain border-t border-line bg-paper xl:hidden" data-menu-panel>
+    <nav aria-label="Meniu mobil" class="wrap py-4">
+      <ul class="grid gap-1">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class="block rounded-md px-2 py-3 font-display text-xl text-ink hover:bg-paper-2" data-menu-link>
+                {item.text}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-4 flex flex-wrap gap-3 border-t border-line pt-5">
+        <a href="#contact" class="btn btn-primary" data-menu-link>Comandă</a>
+        <a href={telHref} class="btn btn-ghost tabular-nums">{site.telefon}</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('antet');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const panel = document.querySelector<HTMLElement>('[data-menu-panel]');
+
+  const onScroll = () => header?.setAttribute('data-scrolled', String(window.scrollY > 8));
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const setOpen = (open: boolean) => {
+    if (!toggle || !panel) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    panel.classList.toggle('hidden', !open);
+  };
+
+  toggle?.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+  panel?.querySelectorAll('[data-menu-link]').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  header?.addEventListener('focusout', (e) => {
+    const next = e.relatedTarget as Node | null;
+    if (next && !header.contains(next)) setOpen(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      const inMenu = header?.contains(document.activeElement);
+      setOpen(false);
+      if (inMenu) toggle.focus();
+    }
+  });
+  window.matchMedia('(min-width: 80rem)').addEventListener('change', (e) => e.matches && setOpen(false));
+</script>

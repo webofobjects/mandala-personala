@@ -1,0 +1,22 @@
+---
+// Eticheta mică de deasupra titlurilor de secțiune.
+import DotTrail from './DotTrail.astro';
+
+interface Props {
+  text: string;
+  dark?: boolean;
+  class?: string;
+}
+const { text, dark = false, class: cls = '' } = Astro.props;
+---
+
+<p
+  class:list={[
+    'flex items-center gap-3 font-display text-[1.05rem] italic',
+    dark ? 'text-gold-light' : 'text-gold-deep',
+    cls,
+  ]}
+>
+  <DotTrail color={dark ? 'var(--color-gold-light)' : 'var(--color-gold)'} reverse />
+  <span>{text}</span>
+</p>

@@ -1,0 +1,30 @@
+{
+  "name": "mandala-personala",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page pentru mandalapersonala.ro — mandale personale pictate manual.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "imagini": "node scripts/prepare-images.mjs",
+    "astro": "astro"
+  },
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.4",
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.4.4",
+    "tailwindcss": "4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@fontsource-variable/fraunces": "5.3.0",
+    "@fontsource-variable/instrument-sans": "5.3.0",
+    "typescript": "6.0.3"
+  }
+}

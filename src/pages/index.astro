@@ -1,0 +1,83 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import CeEste from '../components/CeEste.astro';
+import Galerie from '../components/Galerie.astro';
+import Beneficii from '../components/Beneficii.astro';
+import Simboluri from '../components/Simboluri.astro';
+import CumLucrez from '../components/CumLucrez.astro';
+import Pret from '../components/Pret.astro';
+import Studii from '../components/Studii.astro';
+import Intrebari from '../components/Intrebari.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+
+import { meta, intrebari } from '../data/continut';
+import { site } from '../data/site';
+import { plain } from '../lib/text';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${site.url}/#organizatie`,
+      name: site.nume,
+      url: site.url,
+      logo: `${site.url}/icon-512.png`,
+      email: site.email,
+      telephone: site.telefonLink,
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: site.telefonLink,
+        email: site.email,
+        contactType: 'customer service',
+        availableLanguage: ['ro'],
+        areaServed: 'RO',
+      },
+    },
+    {
+      '@type': 'Product',
+      '@id': `${site.url}/#mandala-personala`,
+      name: 'Mandala personală pictată manual',
+      description: meta.descriere,
+      image: `${site.url}/og.jpg`,
+      brand: { '@id': `${site.url}/#organizatie` },
+      offers: {
+        '@type': 'Offer',
+        price: site.pret,
+        priceCurrency: 'RON',
+        availability: 'https://schema.org/MadeToOrder',
+        url: `${site.url}/#pret`,
+        seller: { '@id': `${site.url}/#organizatie` },
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: intrebari.lista.map((q) => ({
+        '@type': 'Question',
+        name: plain(q.q),
+        acceptedAnswer: { '@type': 'Answer', text: plain(q.a) },
+      })),
+    },
+  ],
+};
+---
+
+<Base title={meta.titlu} description={meta.descriere} jsonLd={jsonLd}>
+  <Header />
+  <main id="continut">
+    <Hero />
+    <CeEste />
+    <Galerie />
+    <Beneficii />
+    <Simboluri />
+    <CumLucrez />
+    <Pret />
+    <Studii />
+    <Intrebari />
+    <Contact />
+  </main>
+  <Footer />
+</Base>

@@ -1,0 +1,248 @@
+---
+import { Picture, getImage } from 'astro:assets';
+import { galerie } from '../data/continut';
+import { lucrari, lucrare, vizibileInitial } from '../data/lucrari';
+import { accent } from '../lib/text';
+
+// Versiunile mari, pentru vizualizarea pe tot ecranul (browserul alege mărimea potrivită ecranului).
+const items = await Promise.all(
+  lucrari.map(async (l) => {
+    const src = lucrare(l.slug);
+    const latime = Math.min(1400, src.width);
+    const latimi = [720, 1080, latime].filter((w, i, a) => w <= latime && a.indexOf(w) === i);
+    const mare = await getImage({ src, width: latime, widths: latimi, format: 'webp', quality: 80 });
+    return {
+      ...l,
+      src,
+      mare: mare.src,
+      srcsetMare: mare.srcSet.attribute,
+      w: latime,
+      h: Math.round((src.height / src.width) * latime),
+    };
+  }),
+);
+const ascunse = items.length - vizibileInitial;
+---
+
+<section id="lucrari" class="border-y border-line bg-paper-2/60 py-20 lg:py-28" aria-labelledby="titlu-galerie">
+  <div class="wrap">
+    <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+      <div class="lg:col-span-7">
+        <h2 id="titlu-galerie" class="text-title" set:html={accent(galerie.titlu)} />
+      </div>
+      <p class="max-w-[30rem] text-ink-2 lg:col-span-5 lg:justify-self-end">{galerie.text}</p>
+    </div>
+
+    <ul role="list" class="mt-12 grid grid-cols-2 gap-x-3 gap-y-7 sm:gap-x-5 md:grid-cols-3 lg:grid-cols-4" data-galerie>
+      {
+        items.map((l, i) => (
+          <li class:list={[i >= vizibileInitial && 'hidden']} data-extra={i >= vizibileInitial ? '' : undefined}>
+            <button
+              type="button"
+              class="group block w-full cursor-zoom-in text-left"
+              data-index={i}
+              data-mare={l.mare}
+              data-srcset={l.srcsetMare}
+              data-w={l.w}
+              data-h={l.h}
+              data-titlu={l.titlu}
+              data-alt={l.alt}
+              aria-label={`Mărește: ${l.titlu}`}
+            >
+              <span class="block overflow-hidden bg-night shadow-[0_10px_24px_-14px_rgba(40,28,14,.6)]">
+                <Picture
+                  src={l.src}
+                  formats={['avif']}
+                  fallbackFormat="webp"
+                  quality={62}
+                  widths={[280, 420, 560, 760]}
+                  sizes="(min-width: 1024px) 17rem, (min-width: 768px) 30vw, 46vw"
+                  alt={l.alt}
+                  loading="lazy"
+                  class="aspect-square w-full object-cover transition-transform duration-700 ease-[var(--ease-soft)] group-hover:scale-[1.035]"
+                  style={l.pozitie ? `object-position: ${l.pozitie}` : undefined}
+                />
+              </span>
+              <span class="label mt-3 block">{l.titlu}</span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      ascunse > 0 && (
+        <div class="mt-12 flex justify-center" data-mai-mult-zona>
+          <button
+            type="button"
+            class="btn btn-ghost"
+            aria-expanded="false"
+            data-mai-mult
+            data-text-mai-mult={`${galerie.maiMult} (${items.length})`}
+            data-text-mai-putin={galerie.maiPutin}
+          >
+            {`${galerie.maiMult} (${items.length})`}
+          </button>
+        </div>
+      )
+    }
+  </div>
+
+  <dialog
+    class="m-0 h-dvh max-h-none w-screen max-w-none bg-night/95 p-0 text-paper open:flex open:flex-col"
+    aria-label="Lucrare mărită"
+    aria-describedby="lightbox-legenda"
+    data-lightbox
+  >
+    <div class="flex items-center justify-between gap-4 px-4 py-3 sm:px-6">
+      <p class="font-sans text-sm tabular-nums text-paper/70" data-contor></p>
+      <button type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full text-paper hover:bg-white/10" data-inchide>
+        <span class="sr-only">Închide</span>
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg>
+      </button>
+    </div>
+    <figure class="relative flex min-h-0 flex-1 flex-col items-center justify-center px-2 pb-4 sm:px-20">
+      <img class="h-auto max-w-full shadow-2xl" alt="" data-imagine decoding="async" />
+      <figcaption id="lightbox-legenda" class="mt-4 px-4 text-center font-display text-lg italic text-gold-light" data-legenda></figcaption>
+      <button type="button" class="absolute top-1/2 left-1 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-night/60 text-paper hover:bg-white/15 sm:bg-white/5" data-prev>
+        <span class="sr-only">Lucrarea anterioară</span>
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5L7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+      <button type="button" class="absolute top-1/2 right-1 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-night/60 text-paper hover:bg-white/15 sm:bg-white/5" data-next>
+        <span class="sr-only">Lucrarea următoare</span>
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5L13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+    </figure>
+    <p class="pb-4 text-center text-xs text-paper/70 sm:hidden">Glisează pentru următoarea</p>
+    <p class="sr-only" aria-live="polite" aria-atomic="true" data-anunt></p>
+  </dialog>
+</section>
+
+<script>
+  const root = document.getElementById('lucrari');
+  const dialog = root?.querySelector<HTMLDialogElement>('[data-lightbox]');
+  const img = dialog?.querySelector<HTMLImageElement>('[data-imagine]');
+  const legenda = dialog?.querySelector<HTMLElement>('[data-legenda]');
+  const contor = dialog?.querySelector<HTMLElement>('[data-contor]');
+  const anunt = dialog?.querySelector<HTMLElement>('[data-anunt]');
+  const butoane = Array.from(root?.querySelectorAll<HTMLButtonElement>('[data-index]') ?? []);
+  const SIZES = '(min-width: 640px) min(calc(100vw - 10rem), calc(100dvh - 9.5rem)), calc(100vw - 1rem)';
+  let curent = 0;
+  let declansator: HTMLElement | null = null;
+
+  // încarcă versiunea mare potrivită ecranului, fără să o pună încă în pagină
+  const incarca = (b?: HTMLElement) => {
+    const i = new Image();
+    i.sizes = SIZES;
+    if (b?.dataset.srcset) i.srcset = b.dataset.srcset;
+    i.src = b?.dataset.mare ?? '';
+    return i;
+  };
+
+  const arata = (n: number) => {
+    if (!img || !legenda || !contor) return;
+    curent = (n + butoane.length) % butoane.length;
+    const idx = curent;
+    const b = butoane[idx];
+
+    // cutia imaginii are de la început mărimea finală, ca să nu „sară”
+    const w = Number(b.dataset.w) || 1400;
+    const h = Number(b.dataset.h) || 1400;
+    img.width = w;
+    img.height = h;
+    img.style.aspectRatio = `${w} / ${h}`;
+    img.style.width = `min(100%, ${w}px, calc((100dvh - 9.5rem) * ${(w / h).toFixed(4)}))`;
+
+    // miniatura deja încărcată apare imediat; altfel așteptăm versiunea mare
+    const mica = b.querySelector('img');
+    const areMica = !!(mica && mica.complete && mica.naturalWidth);
+    img.style.visibility = areMica ? '' : 'hidden';
+    if (areMica && mica) img.src = mica.currentSrc;
+    else img.removeAttribute('src');
+
+    const mare = incarca(b);
+    const gata = () => {
+      if (curent !== idx) return;
+      if (mare.naturalWidth) img.src = mare.currentSrc || mare.src;
+      img.style.visibility = '';
+      // vecinii se încarcă abia după ce lucrarea vizibilă a sosit
+      [idx + 1, idx - 1].forEach((j) => incarca(butoane[(j + butoane.length) % butoane.length]));
+    };
+    mare.onload = gata;
+    mare.onerror = gata;
+
+    img.alt = b.dataset.alt ?? '';
+    legenda.textContent = b.dataset.titlu ?? '';
+    contor.textContent = `${idx + 1} / ${butoane.length}`;
+    if (dialog?.open && anunt) anunt.textContent = `${idx + 1} din ${butoane.length}: ${b.dataset.titlu ?? ''}`;
+  };
+
+  butoane.forEach((b, i) =>
+    b.addEventListener('click', () => {
+      declansator = b;
+      arata(i);
+      dialog?.showModal();
+    }),
+  );
+
+  dialog?.querySelector('[data-inchide]')?.addEventListener('click', () => dialog.close());
+  dialog?.querySelector('[data-prev]')?.addEventListener('click', () => arata(curent - 1));
+  dialog?.querySelector('[data-next]')?.addEventListener('click', () => arata(curent + 1));
+  dialog?.addEventListener('close', () => declansator?.focus());
+  // un clic pe fundal închide
+  dialog?.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    if (t === dialog || t.tagName === 'FIGURE') dialog.close();
+  });
+  dialog?.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') arata(curent + 1);
+    if (e.key === 'ArrowLeft') arata(curent - 1);
+  });
+
+  // glisare pe telefon: un singur deget, mai mult orizontal, și doar când pagina nu e mărită
+  let x0: number | null = null;
+  let y0 = 0;
+  let id0 = -1;
+  dialog?.addEventListener(
+    'touchstart',
+    (e) => {
+      if (e.touches.length !== 1 || (window.visualViewport?.scale ?? 1) > 1.01) {
+        x0 = null;
+        return;
+      }
+      const t = e.touches[0];
+      x0 = t.clientX;
+      y0 = t.clientY;
+      id0 = t.identifier;
+    },
+    { passive: true },
+  );
+  dialog?.addEventListener(
+    'touchend',
+    (e) => {
+      const t = Array.from(e.changedTouches).find((c) => c.identifier === id0);
+      if (x0 === null || !t || e.touches.length > 0) return;
+      const dx = t.clientX - x0;
+      const dy = t.clientY - y0;
+      x0 = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > 1.5 * Math.abs(dy)) arata(curent + (dx < 0 ? 1 : -1));
+    },
+    { passive: true },
+  );
+  dialog?.addEventListener('touchcancel', () => (x0 = null), { passive: true });
+
+  // „Vezi toate lucrările”
+  const maiMult = root?.querySelector<HTMLButtonElement>('[data-mai-mult]');
+  maiMult?.addEventListener('click', () => {
+    const deschis = maiMult.getAttribute('aria-expanded') === 'true';
+    root?.querySelectorAll('[data-extra]').forEach((li) => li.classList.toggle('hidden', deschis));
+    maiMult.setAttribute('aria-expanded', String(!deschis));
+    maiMult.textContent = (deschis ? maiMult.dataset.textMaiMult : maiMult.dataset.textMaiPutin) ?? '';
+    if (!deschis) {
+      root?.querySelector<HTMLButtonElement>('[data-extra] button')?.focus();
+    } else {
+      document.getElementById('titlu-galerie')?.scrollIntoView({ block: 'start' });
+      butoane[0]?.focus({ preventScroll: true });
+    }
+  });
+</script>

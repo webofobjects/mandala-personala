@@ -1,0 +1,21 @@
+---
+// Cercuri concentrice de puncte, ca marginile picturilor. Decor, în spatele imaginilor.
+// SVG-ul e generat de src/pages/decor/[nume].svg.ts.
+interface Props {
+  class?: string;
+  varianta?: 'auriu' | 'deschis';
+  eager?: boolean;
+}
+const { class: cls = '', varianta = 'auriu', eager = false } = Astro.props;
+---
+
+<img
+  src={`/decor/halo-${varianta}.svg`}
+  alt=""
+  aria-hidden="true"
+  width="1000"
+  height="1000"
+  loading={eager ? 'eager' : 'lazy'}
+  decoding="async"
+  class={cls}
+/>

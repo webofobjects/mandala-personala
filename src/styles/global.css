@@ -1,0 +1,206 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Paleta e luată din picturi: hârtie caldă, cerneală indigo,
+   aurul punctelor, roșul trandafirilor, albastrul regal.
+------------------------------------------------------------------- */
+@theme {
+  --color-paper: #f4eee2;
+  --color-paper-2: #ebe2d1;
+  --color-paper-3: #e2d6bf;
+  --color-line: #d6c8ae;
+  --color-ink: #1d1b2c;
+  --color-ink-2: #4b475e;
+  --color-night: #14152a;
+  --color-night-2: #1d1f3d;
+  --color-gold: #c29a45;
+  --color-gold-deep: #7a5810;
+  --color-gold-light: #e7cc86;
+  --color-indigo: #2b2f73;
+  --color-indigo-2: #20245c;
+  --color-carmine: #a3233a;
+  --color-lotus: #c2417e;
+
+  --font-display: "Fraunces Variable", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-sans: "Instrument Sans Variable", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --text-display: clamp(2.55rem, 1.35rem + 4.6vw, 5.4rem);
+  --text-display--line-height: 1.02;
+  --text-title: clamp(2rem, 1.35rem + 2.4vw, 3.45rem);
+  --text-title--line-height: 1.06;
+  --text-lede: clamp(1.15rem, 1.05rem + 0.45vw, 1.4rem);
+  --text-lede--line-height: 1.5;
+
+  --ease-soft: cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--color-paper);
+    /* granulația foarte fină a hârtiei */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .18 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    font-kerning: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    color: var(--color-ink);
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-gold-light);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-indigo);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .bg-night :focus-visible,
+  dialog :focus-visible {
+    outline-color: var(--color-gold-light);
+  }
+
+  /* pagina nu se mai derulează în spate cât timp o lucrare e mărită */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  img {
+    height: auto;
+  }
+}
+
+@layer components {
+  /* lățimea paginii și marginile laterale */
+  .wrap {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 48rem) {
+    .wrap {
+      padding-inline: 2rem;
+    }
+  }
+
+  /* o linie de puncte, ca un rând trasat cu ustensila de pictat */
+  .dot-rule {
+    height: 6px;
+    background-image: radial-gradient(circle at center, var(--color-gold) 1.6px, transparent 2.1px);
+    background-size: 12px 6px;
+    background-repeat: repeat-x;
+    background-position: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.2;
+    text-decoration: none;
+    transition:
+      background-color 0.2s var(--ease-soft),
+      color 0.2s var(--ease-soft),
+      border-color 0.2s var(--ease-soft),
+      transform 0.2s var(--ease-soft);
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn-primary {
+    background: var(--color-indigo);
+    color: var(--color-paper);
+  }
+  .btn-primary:hover {
+    background: var(--color-night);
+  }
+  .btn-ghost {
+    border: 1.5px solid currentColor;
+    color: var(--color-ink);
+  }
+  .btn-ghost:hover {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    border-color: var(--color-ink);
+  }
+  .btn-gold {
+    background: var(--color-gold-light);
+    color: var(--color-night);
+  }
+  .btn-gold:hover {
+    background: #f1dca2;
+  }
+
+  /* text de corp pentru paragrafe lungi */
+  .prose-ro p + p {
+    margin-top: 1.05em;
+  }
+
+  /* link subliniat discret, cu sublinierea aurie */
+  .link {
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-gold);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.22em;
+    transition: text-decoration-color 0.2s;
+  }
+  .link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* etichetă de muzeu sub imagini */
+  .label {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    color: var(--color-ink-2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

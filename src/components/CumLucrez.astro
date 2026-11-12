@@ -1,0 +1,46 @@
+---
+import { proces } from '../data/continut';
+import { accent } from '../lib/text';
+
+// Pasul n este marcat cu n puncte așezate în cerc — ca o mandala care crește.
+const puncte = (n: number) => {
+  if (n === 1) return [{ x: 24, y: 24 }];
+  const R = n === 2 ? 6 : 8;
+  return Array.from({ length: n }, (_, i) => {
+    const a = (i / n) * 2 * Math.PI - Math.PI / 2 + (n === 2 ? Math.PI / 2 : 0);
+    return { x: +(24 + R * Math.cos(a)).toFixed(2), y: +(24 + R * Math.sin(a)).toFixed(2) };
+  });
+};
+---
+
+<section id="cum-comanzi" class="py-20 lg:py-28" aria-labelledby="titlu-proces">
+  <div class="wrap">
+    <div class="max-w-[44rem]">
+      <h2 id="titlu-proces" class="text-title" set:html={accent(proces.titlu)} />
+    </div>
+
+    <div class="relative mt-14">
+    <div class="dot-rule pointer-events-none absolute top-[21px] right-[calc((100%_-_7.5rem)/4_-_1.5rem)] left-[3rem] hidden lg:block" aria-hidden="true"></div>
+    <ol role="list" class="relative grid gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
+      {
+        proces.pasi.map((p, i) => (
+          <li class="relative grid grid-cols-[3rem_1fr] gap-x-5 lg:block">
+            <span class="relative z-10 flex size-12 items-center justify-center rounded-full border border-gold bg-paper lg:mx-0" aria-hidden="true">
+              <svg viewBox="0 0 48 48" width="48" height="48">
+                {puncte(i + 1).map((d) => (
+                  <circle cx={d.x} cy={d.y} r="3.2" fill={i === 3 ? 'var(--color-carmine)' : 'var(--color-indigo)'} />
+                ))}
+              </svg>
+            </span>
+            <div class="lg:mt-6">
+              <p class="text-sm font-semibold tracking-wide text-gold-deep">Pasul {i + 1}</p>
+              <h3 class="mt-1 text-[1.6rem] leading-tight" set:html={accent(p.titlu)} />
+              <p class="mt-3 text-ink-2" set:html={accent(p.text)} />
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+---
+// „Dâra” de puncte care se micșorează — gestul de bază al picturii cu puncte:
+// ustensila e înmuiată o dată în vopsea, iar punctele ies tot mai mici.
+interface Props {
+  count?: number;
+  color?: string;
+  class?: string;
+  reverse?: boolean;
+}
+const { count = 5, color = 'var(--color-gold)', class: cls = '', reverse = false } = Astro.props;
+
+const gap = 3.4;
+let x = 0;
+const dots = Array.from({ length: count }, (_, i) => {
+  const r = Math.max(0.9, 3.4 - i * 0.62);
+  const cx = x + r;
+  x += r * 2 + gap;
+  return { cx: +cx.toFixed(2), r: +r.toFixed(2) };
+});
+const width = Math.ceil(x - gap);
+---
+
+<svg
+  viewBox={`0 0 ${width} 8`}
+  width={width}
+  height="8"
+  class={cls}
+  style={reverse ? 'transform: scaleX(-1)' : undefined}
+  aria-hidden="true"
+>
+  {dots.map((d) => <circle cx={d.cx} cy="4" r={d.r} fill={color} />)}
+</svg>

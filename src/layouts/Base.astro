@@ -1,0 +1,69 @@
+---
+import '../styles/fonts.css';
+import '../styles/global.css';
+
+import frauncesLatin from '../fonts/fraunces-normal-latin.woff2?url';
+import frauncesItalic from '../fonts/fraunces-italic-latin.woff2?url';
+import instrumentLatin from '../fonts/instrument-sans-latin.woff2?url';
+
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  jsonLd?: Record<string, unknown>;
+}
+
+const { title, description, jsonLd } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
+const ogImage = new URL('/og.jpg', Astro.site ?? site.url).href;
+---
+
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="preload" href={frauncesLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={frauncesItalic} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={instrumentLatin} as="font" type="font/woff2" crossorigin />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#f4eee2" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ro_RO" />
+    <meta property="og:site_name" content={site.nume} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Trei mandale pictate cu puncte, în auriu, albastru, roz și roșu." />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <noscript>
+      <style>
+        [data-extra] { display: list-item !important; }
+        [data-mai-mult-zona], [data-copiaza], [data-menu-toggle] { display: none !important; }
+      </style>
+    </noscript>
+
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <a
+      href="#continut"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-5 focus:py-3 focus:text-paper"
+      >Sari la conținut</a
+    >
+    <slot />
+  </body>
+</html>

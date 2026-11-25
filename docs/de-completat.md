@@ -14,9 +14,21 @@ Clienții le caută primele, iar acum lipsesc de pe pagină:
 - [ ] **Fotografia înainte de expediere**: o trimiți? Câte modificări se pot cere?
 - [ ] **Livrarea**: curierul (FAN Courier, Sameday/easybox, Cargus, Poșta Română), costul (sau „transport inclus”), dacă e asigurat, dacă trimiți și în străinătate.
 - [ ] **Plata**: transfer bancar, card, ramburs? Ceri avans (și cât)?
-- [ ] **Reproduceri**: confirmă că nu vinzi printuri. Pagina spune acum „Nu vând reproduceri”; dacă nu e adevărat, șterge propoziția din `src/data/continut.ts` (secțiunea `ceEste.fapte`).
+- [x] **Reproduceri**: confirmat, nu vinzi printuri. Fiecare mandala e pictată de mână, iar un model din galerie se poate picta din nou, de la zero.
 
 Unde se modifică: textele sunt în `src/data/continut.ts` (secțiunile `pret`, `proces`, `intrebari`), iar prețul în `src/data/site.ts`.
+
+### Mandala după data nașterii
+
+Pe site scrie acum că, la cerere, pornești de la data nașterii: scrii cifrele datei, le adaugi și în ordine inversă, le aduni rând cu rând până rămâne o cifră, iar fiecare cifră primește o culoare. Exemplul ilustrat folosește tabelul de culori cel mai des întâlnit. Cercetarea completă (metoda, concurența, ce să nu promiți) e în [mandala-dupa-data-nasterii.md](mandala-dupa-data-nasterii.md). Confirmă:
+
+- [ ] Folosești chiar metoda asta, sau alta? Dacă alta, spune-mi cum și schimb textul.
+- [ ] Ce culori dai cifrelor (tabelul de pe site sau al tău)? Unde intră auriul?
+- [ ] Îi arăți clientului calculul (din ce cifră vine fiecare culoare)? Pe site scrie că da.
+- [ ] Prețul și termenul sunt aceleași ca la celelalte mandale?
+- [ ] Iei și prenumele în calcul? Dacă da, adaug și varianta „mandala numelui” (oamenii o caută în Google).
+- [ ] Ce faci cu data după ce termini tabloul? Pe pagină nu scrie nimic despre asta; locul ei e în pagina de confidențialitate, când o faci (vezi punctul 8 de mai jos).
+- [ ] Ai o mandala pictată după data nașterii? O fotografie a ei ar arăta mai bine decât exemplul cu cifre.
 
 ## 2. Despre tine
 
@@ -62,7 +74,18 @@ Ce **nu** e nevoie, cât timp site-ul rămâne așa: banner de cookie-uri (site-
 
 > Site-ul nu folosește cookie-uri, nu are formulare și nu folosește instrumente de urmărire. Datele pe care mi le dai la telefon sau prin e-mail le folosesc doar pentru comanda ta.
 
-## 5. Unde se schimbă ce
+## 5. Vizibilitate în Google (după ce site-ul e online)
+
+Pagina e deja pregătită pentru căutări: titlul, descrierea și titlurile secțiunilor folosesc ce caută oamenii în română (am verificat sugestiile Google pe 12 noiembrie 2026): „tablou pictat manual pe pânză”, „tablou mandala”, „mandala pictată”, „mandala personalizată”, „cadou personalizat”, „cadou cu semnificație”. Are și datele structurate pentru Google (produs cu preț, întrebări frecvente, numele site-ului) și o hartă a site-ului.
+
+Ce mai poți face tu:
+
+- [ ] Adaugă site-ul în **Google Search Console** (gratuit) și trimite harta site-ului: `https://mandalapersonala.ro/sitemap-index.xml`.
+- [ ] Pune linkul spre site pe paginile tale de Facebook sau Instagram. Dacă îmi dai adresele lor, le adaug și în datele pentru Google.
+- [ ] Când ai recenzii reale (de exemplu pe Google), cu acordul clienților, se pot arăta pe pagină.
+- [ ] Online, „mandala personală” înseamnă uneori o mandala „calculată” după data nașterii. Dacă folosești și tu data nașterii, spune-mi și adaug o întrebare despre asta; dacă nu, pagina rămâne așa.
+
+## 6. Unde se schimbă ce
 
 | Ce | Fișier |
 | --- | --- |

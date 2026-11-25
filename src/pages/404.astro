@@ -4,7 +4,7 @@ import DotMark from '../components/DotMark.astro';
 import { site, telHref } from '../data/site';
 ---
 
-<Base title={`Pagina nu există | ${site.domeniu}`} description="Pagina căutată nu există. Întoarce-te la mandalele personale pictate manual.">
+<Base title={`Pagina nu există | ${site.domeniu}`} description="Pagina căutată nu există. Întoarce-te la mandalele personale pictate manual." robots="noindex, follow">
   <main id="continut" class="wrap flex min-h-dvh flex-col items-start justify-center py-20">
     <DotMark size={56} />
     <h1 class="mt-8 text-title">Aici nu e nimic de văzut</h1>

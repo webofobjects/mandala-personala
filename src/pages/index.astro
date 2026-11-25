@@ -5,21 +5,41 @@ import Hero from '../components/Hero.astro';
 import CeEste from '../components/CeEste.astro';
 import Galerie from '../components/Galerie.astro';
 import Beneficii from '../components/Beneficii.astro';
+import Cadou from '../components/Cadou.astro';
 import Simboluri from '../components/Simboluri.astro';
+import DataNasterii from '../components/DataNasterii.astro';
 import CumLucrez from '../components/CumLucrez.astro';
 import Pret from '../components/Pret.astro';
-import Studii from '../components/Studii.astro';
 import Intrebari from '../components/Intrebari.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 
+import { getImage } from 'astro:assets';
 import { meta, intrebari } from '../data/continut';
 import { site } from '../data/site';
+import { lucrare } from '../data/lucrari';
 import { plain } from '../lib/text';
+
+// Câteva lucrări reale, ca imagini ale produsului în rezultatele căutării.
+const imaginiProdus = await Promise.all(
+  ['trandafir-pe-albastru', 'samanta-vietii-auriu-indigo', 'floarea-vietii-lotusi-roz', 'trandafir-in-inima'].map(async (slug) => {
+    const img = await getImage({ src: lucrare(slug), width: 1200, format: 'jpg', quality: 82 });
+    return new URL(img.src, site.url).href;
+  }),
+);
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${site.url}/#site`,
+      name: site.nume,
+      alternateName: site.domeniu,
+      url: `${site.url}/`,
+      inLanguage: 'ro-RO',
+      publisher: { '@id': `${site.url}/#organizatie` },
+    },
     {
       '@type': 'Organization',
       '@id': `${site.url}/#organizatie`,
@@ -40,9 +60,10 @@ const jsonLd = {
     {
       '@type': 'Product',
       '@id': `${site.url}/#mandala-personala`,
-      name: 'Mandala personală pictată manual',
+      name: 'Mandala personalizată pictată manual pe pânză',
       description: meta.descriere,
-      image: `${site.url}/og.jpg`,
+      image: [...imaginiProdus, `${site.url}/og.jpg`],
+      category: 'Tablouri pictate manual',
       brand: { '@id': `${site.url}/#organizatie` },
       offers: {
         '@type': 'Offer',
@@ -72,10 +93,11 @@ const jsonLd = {
     <CeEste />
     <Galerie />
     <Beneficii />
+    <Cadou />
     <Simboluri />
+    <DataNasterii />
     <CumLucrez />
     <Pret />
-    <Studii />
     <Intrebari />
     <Contact />
   </main>

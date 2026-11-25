@@ -1,0 +1,80 @@
+---
+// Mandala ca un cadou: ocazii și ce îmi spui despre omul care o primește.
+import { Picture } from 'astro:assets';
+import DotTrail from './DotTrail.astro';
+import { cadou } from '../data/continut';
+import { lucrari, lucrare } from '../data/lucrari';
+import { accent } from '../lib/text';
+
+const imagini = cadou.imagini.map((slug) => {
+  const l = lucrari.find((x) => x.slug === slug);
+  return { src: lucrare(slug), alt: l?.alt ?? '', titlu: l?.titlu ?? '' };
+});
+---
+
+<section id="cadou" class="border-y border-line bg-paper-2/60 py-20 lg:py-28" aria-labelledby="titlu-cadou">
+  <div class="wrap">
+    <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+      <h2 id="titlu-cadou" class="text-title lg:col-span-6" set:html={accent(cadou.titlu)} />
+      <p class="max-w-[36rem] text-lede text-ink-2 lg:col-span-6 lg:justify-self-end" set:html={accent(cadou.intro)} />
+    </div>
+
+    <ul role="list" class="mt-12 grid grid-cols-3 gap-3 sm:gap-6">
+      {
+        imagini.map((im) => (
+          <li>
+            <figure>
+              <Picture
+                src={im.src}
+                formats={['avif']}
+                fallbackFormat="webp"
+                quality={62}
+                widths={[200, 320, 480, 640]}
+                sizes="(min-width: 1216px) 23rem, 30vw"
+                alt={im.alt}
+                loading="lazy"
+                class="aspect-square w-full object-cover shadow-[0_10px_24px_-14px_rgba(40,28,14,.6)]"
+              />
+              <figcaption class="label mt-3 hidden sm:block">{im.titlu}</figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-14 grid gap-12 md:grid-cols-2 md:gap-16">
+      <div>
+        <h3 class="text-[1.5rem] leading-tight" set:html={accent(cadou.ocaziiTitlu)} />
+        <ul role="list" class="mt-5 grid gap-3">
+          {
+            cadou.ocazii.map((o) => (
+              <li class="flex items-baseline gap-4 text-ink-2">
+                <DotTrail count={3} class="shrink-0" />
+                <span set:html={accent(o)} />
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-6 text-ink-2" set:html={accent(cadou.ocaziiNota)} />
+      </div>
+      <div>
+        <h3 class="text-[1.5rem] leading-tight" set:html={accent(cadou.despreTitlu)} />
+        <ul role="list" class="mt-5 grid gap-3">
+          {
+            cadou.despre.map((o) => (
+              <li class="flex items-baseline gap-4 text-ink-2">
+                <DotTrail count={3} class="shrink-0" />
+                <span set:html={accent(o)} />
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-6 text-ink-2" set:html={accent(cadou.nota)} />
+      </div>
+    </div>
+
+    <div class="mt-12">
+      <a href="#contact" class="btn btn-primary">{cadou.cta}</a>
+    </div>
+  </div>
+</section>

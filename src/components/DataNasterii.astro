@@ -1,0 +1,85 @@
+---
+// Mandala după data nașterii: textul și triunghiul de cifre al unei date de exemplu.
+import DotTrail from './DotTrail.astro';
+import { dataNasterii } from '../data/continut';
+import { triunghi, culoriCifre, textPe } from '../lib/dataNasterii';
+import { accent } from '../lib/text';
+
+const randuri = triunghi(dataNasterii.exempluData);
+
+// geometrie: puncte de 22, la pas de 26; rândurile se strâng ca într-un triunghi echilateral
+const d = 22;
+const pas = 26;
+const dy = pas * 0.866;
+const n = randuri[0].length;
+const latime = (n - 1) * pas + d;
+const inaltime = (randuri.length - 1) * dy + d;
+const puncte = randuri.flatMap((rand, i) =>
+  rand.map((c, j) => ({
+    x: +(d / 2 + j * pas + (i * pas) / 2).toFixed(1),
+    y: +(d / 2 + i * dy).toFixed(1),
+    c,
+    fill: culoriCifre[c].hex,
+    text: textPe(culoriCifre[c].hex),
+  })),
+);
+const legenda = Object.entries(culoriCifre).filter(([k]) => k !== '0');
+---
+
+<section id="data-nasterii" class="py-20 lg:py-28" aria-labelledby="titlu-data-nasterii">
+  <div class="wrap grid items-center gap-14 lg:grid-cols-12">
+    <div class="lg:col-span-6 xl:col-span-5">
+      <h2 id="titlu-data-nasterii" class="text-title" set:html={accent(dataNasterii.titlu)} />
+      <p class="mt-6 max-w-[36rem] text-lede text-ink-2" set:html={accent(dataNasterii.text)} />
+
+      <h3 class="mt-9 text-[1.35rem] leading-tight" set:html={accent(dataNasterii.trimitiTitlu)} />
+      <ul role="list" class="mt-4 grid gap-3">
+        {
+          dataNasterii.trimiti.map((t) => (
+            <li class="flex items-baseline gap-4 text-ink-2">
+              <DotTrail count={3} class="shrink-0" />
+              <span set:html={accent(t)} />
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-9">
+        <a href="#contact" class="btn btn-primary">{dataNasterii.cta}</a>
+      </div>
+    </div>
+
+    <figure class="lg:col-span-6 lg:col-start-7 xl:col-span-6 xl:col-start-7">
+      <svg
+        viewBox={`0 0 ${latime} ${inaltime.toFixed(1)}`}
+        class="mx-auto block h-auto w-full max-w-[30rem]"
+        role="img"
+        aria-labelledby="triunghi-legenda"
+      >
+        {
+          puncte.map((p) => (
+            <g>
+              <circle cx={p.x} cy={p.y} r={d / 2} fill={p.fill} stroke={p.c === 0 ? '#c29a45' : 'none'} stroke-width="1.2" />
+              <text x={p.x} y={p.y} dy="0.35em" text-anchor="middle" font-size="11" font-weight="600" fill={p.text}>
+                {p.c}
+              </text>
+            </g>
+          ))
+        }
+      </svg>
+      <figcaption id="triunghi-legenda" class="label mx-auto mt-5 max-w-[30rem] text-center" set:html={accent(dataNasterii.legenda)} />
+      <ul role="list" class="mx-auto mt-5 flex max-w-[30rem] flex-wrap justify-center gap-x-4 gap-y-2 text-[0.8rem] text-ink-2" aria-label="Culorile cifrelor">
+        {
+          legenda.map(([k, v]) => (
+            <li class="flex items-center gap-1.5">
+              <span class="inline-block size-3 rounded-full" style={`background:${v.hex}`} aria-hidden="true" />
+              <span>
+                {k} {v.nume}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </figure>
+  </div>
+</section>

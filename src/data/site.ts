@@ -15,21 +15,22 @@ export const site = {
 export const pretAfisat = `${site.pret} ${site.moneda}`;
 
 // Mesajul precompletat când cineva apasă pe „Scrie-mi un e-mail”.
-export const emailSubiect = 'Comandă mandala personală';
+export const emailSubiect = 'Comandă pentru o mandala personală';
 export const emailCorp = [
   'Bună ziua,',
   '',
   'Aș vrea o mandala personală.',
   '',
-  'Pentru cine este (pentru mine, pentru un cuplu, pentru o familie): ',
-  'Ocazia, dacă există: ',
+  'Pentru cine este (pentru mine sau cadou pentru cineva drag): ',
+  'Ocazia, dacă există (zi de naștere, nuntă, botez…): ',
+  'Data nașterii (doar pentru o mandala după data nașterii): ',
   'Ce aș vrea să-mi amintească: ',
-  'Culori care îmi plac / culori pe care nu le vreau: ',
+  'Culorile care îmi plac și cele pe care nu le vreau: ',
   'Simboluri, dacă am deja câteva în minte: ',
   'Unde va sta tabloul: ',
   'Până când aș avea nevoie de ea: ',
   '',
-  'Mulțumesc!',
+  'Mulțumesc.',
 ].join('\n');
 
 export const mailtoHref = `mailto:${site.email}?subject=${encodeURIComponent(emailSubiect)}&body=${encodeURIComponent(emailCorp)}`;

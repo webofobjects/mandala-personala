@@ -7,9 +7,14 @@ import { pretAfisat } from '../data/site';
 import { lucrari, lucrare } from '../data/lucrari';
 import { accent } from '../lib/text';
 
-const slug = 'floarea-vietii-lotusi-roz';
+// Lucrarea din prima pagină. Descrierea și legenda vin din src/data/lucrari.ts.
+const slug = 'trandafir-pe-albastru';
 const imagine = lucrare(slug);
-const alt = lucrari.find((l) => l.slug === slug)?.alt ?? '';
+const intrare = lucrari.find((l) => l.slug === slug);
+const alt = intrare?.alt ?? '';
+const legenda = intrare?.titlu ?? '';
+// nu generăm versiuni mai mari decât fotografia originală
+const latimi = [...new Set([480, 720, 960, 1200].filter((w) => w <= imagine.width).concat(Math.min(imagine.width, 1200)))].sort((a, b) => a - b);
 ---
 
 <section class="relative overflow-x-clip" aria-labelledby="titlu-principal">
@@ -36,7 +41,7 @@ const alt = lucrari.find((l) => l.slug === slug)?.alt ?? '';
         <Picture
           src={imagine}
           formats={['avif', 'webp']}
-          widths={[480, 720, 960, 1200]}
+          widths={latimi}
           sizes="(min-width: 1024px) min(36rem, 45vw), min(36rem, 78vw)"
           alt={alt}
           priority
@@ -45,7 +50,7 @@ const alt = lucrari.find((l) => l.slug === slug)?.alt ?? '';
       </div>
       <figcaption class="label mx-auto mt-4 flex max-w-[min(36rem,78vw)] items-center justify-end gap-2">
         <span class="inline-block size-1.5 rounded-full bg-carmine" aria-hidden="true"></span>
-        {hero.legenda}
+        {legenda}
       </figcaption>
     </figure>
   </div>

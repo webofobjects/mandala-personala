@@ -1,0 +1,41 @@
+# Publică site-ul pe GitHub Pages la fiecare push pe ramura main.
+# În GitHub: Settings → Pages → Source: „GitHub Actions”, Custom domain: mandalapersonala.ro.
+name: Publicare pe GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # permite și pornirea manuală, din tab-ul Actions
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# o singură publicare odată; una nouă o anulează pe cea veche
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descarcă proiectul
+        uses: actions/checkout@v7
+      - name: Instalează, construiește și încarcă site-ul
+        uses: withastro/action@v6
+        with:
+          node-version: 24
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publică pe GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

@@ -43,13 +43,43 @@ Site-ul se deschide la http://localhost:4321.
 
 Astro micșorează și convertește singur imaginile (WebP/AVIF) la publicare.
 
-## Publicare
+## Publicare pe GitHub Pages
+
+Site-ul se publică singur la fiecare `git push` pe ramura `main`, prin `.github/workflows/deploy.yml`. Fișierul `public/CNAME` păstrează domeniul `mandalapersonala.ro`.
+
+O singură dată, în repo-ul de pe GitHub:
+
+1. **Settings → Pages**: la Source alegi **GitHub Actions**, iar la Custom domain scrii `mandalapersonala.ro`.
+2. La firma domeniului (Claus Web), în zona DNS (nu la nameservere):
+
+   | Tip | Nume | Valoare |
+   | --- | --- | --- |
+   | A | @ | 185.199.108.153 |
+   | A | @ | 185.199.109.153 |
+   | A | @ | 185.199.110.153 |
+   | A | @ | 185.199.111.153 |
+   | AAAA | @ | 2606:50c0:8000::153 |
+   | AAAA | @ | 2606:50c0:8001::153 |
+   | AAAA | @ | 2606:50c0:8002::153 |
+   | AAAA | @ | 2606:50c0:8003::153 |
+   | CNAME | www | webofobjects.github.io |
+
+   Șterge vechile înregistrări A/AAAA/CNAME pentru `@` și `www`; nu atinge înregistrările MX (e-mailul).
+3. După ce DNS-ul s-a propagat (până la 24 de ore), bifezi **Enforce HTTPS** în Settings → Pages.
+
+Progresul fiecărei publicări se vede în tab-ul **Actions** al repo-ului.
+
+Ca să vezi local varianta finală:
 
 ```bash
 npm run build
 ```
 
-Rezultatul e în folderul `dist/`. Se poate publica pe Netlify, Cloudflare Pages sau Vercel (comanda de build: `npm run build`, folderul publicat: `dist`). Apoi domeniul `mandalapersonala.ro` se leagă de serviciul ales, din panoul firmei de la care e cumpărat domeniul.
+```bash
+npm run preview
+```
+
+Fișierul `public/_headers` contează doar dacă muți site-ul pe Netlify sau Cloudflare Pages; GitHub Pages îl ignoră.
 
 ## Verificare
 

@@ -38,8 +38,34 @@ export const works = {
   '22.jpeg': 'spirala-de-cercuri',
   '23.jpeg': 'floarea-vietii-ochi-de-paun',
   '24.jpeg': 'samanta-vietii-auriu-indigo',
+
+  // lucrări noi (poze mandale/poze noi)
+  'poze noi/1.jpeg': 'floarea-vietii-rotunda-ochi-de-paun',
+  'poze noi/2.jpeg': 'floarea-vietii-aur-turcoaz',
+  'poze noi/3.jpeg': 'cubul-lui-metatron',
+  'poze noi/6.jpeg': 'potirul-samanta-vietii',
+  'poze noi/7.jpeg': 'samanta-vietii-curcubeu',
+  'poze noi/8.jpeg': 'floarea-vietii-hexagon-paun',
+  'poze noi/9.jpeg': 'mandala-alb-negru',
+  'poze noi/10.jpeg': 'floarea-vietii-albastra-flori',
+  'poze noi/11.jpeg': 'sri-yantra-albastru',
+  'poze noi/WhatsApp Image 2026-11-15 at 22.42.44.jpeg': 'steaua-si-infinitul',
+  'poze noi/WhatsApp Image 2026-11-15 at 22.47.05.jpeg': 'calul-alb',
+  'poze noi/WhatsApp Image 2026-11-15 at 22.49.19.jpeg': 'spirala-portocalie',
+  'poze noi/WhatsApp Image 2026-11-15 at 22.50.57.jpeg': 'cercuri-pe-argintiu',
+  'poze noi/WhatsApp Image 2026-11-15 at 22.54.16.jpeg': 'floarea-vietii-verde-flori',
+  'poze noi/WhatsApp Image 2026-11-15 at 22.55.30.jpeg': 'inger-cerc-de-aur',
+  'poze noi/WhatsApp Image 2026-11-15 at 23.01.46.jpeg': 'steaua-aurie',
+  'poze noi/WhatsApp Image 2026-11-15 at 23.26.24 2.jpeg': 'floarea-vietii-roz-flori',
+  'poze noi/WhatsApp Image 2026-11-15 at 23.26.24 3.jpeg': 'pasarea-phoenix',
+  'poze noi/WhatsApp Image 2026-11-15 at 23.26.24 4.jpeg': 'cercul-ingerilor',
+  'poze noi/WhatsApp Image 2026-11-15 at 23.26.24 5.jpeg': 'sri-yantra-mov',
+  'poze noi/WhatsApp Image 2026-11-15 at 23.26.24 6.jpeg': 'sri-yantra-turcoaz',
+  'poze noi/WhatsApp Image 2026-11-15 at 23.26.24.jpeg': 'buddha',
 };
 // 20.jpeg este aceeași pictură ca 11.jpg, iar 15.jpeg aceeași cu 23.jpeg (altă lumină) — nu le dublăm.
+// Din „poze noi”: 5.jpeg = WhatsApp 22.42.44, WhatsApp 23.03.29 = 3.jpeg, WhatsApp 23.04.12 = 9.jpeg,
+// WhatsApp 23.04.31 = 11.jpeg (aceeași pictură, altă fotografie); 4.jpeg pare aceeași pictură ca 14.jpeg.
 
 // decupaje: [sursă, nume, left, top, size] (coordonate în pixeli pe original)
 const crops = [
@@ -54,12 +80,12 @@ const crops = [
   ['24.jpeg', 'simbol-samanta-vietii', 560, 530, 910],
   ['23.jpeg', 'simbol-ochi-de-paun', 30, 25, 400],
   ['21.jpeg', 'simbol-romania', 50, 20, 1350],
-  // texturi (macro) — candidate pentru secțiunea despre tehnică
-  ['16.jpeg', 'textura-puncte-aurii', 760, 760, 560],
-  ['14.jpeg', 'textura-petale-aurii', 980, 420, 560],
-  ['1.jpeg', 'textura-inele-de-puncte', 40, 1250, 620],
-  ['8.jpeg', 'textura-inimi', 300, 330, 620],
-  ['3.jpeg', 'textura-centru-auriu', 540, 540, 960],
+  ['poze noi/11.jpeg', 'simbol-sri-yantra', 290, 250, 1040],
+  ['poze noi/3.jpeg', 'simbol-metatron', 150, 150, 1300],
+  ['poze noi/WhatsApp Image 2026-11-15 at 23.26.24 3.jpeg', 'simbol-phoenix', 400, 330, 820],
+  ['poze noi/WhatsApp Image 2026-11-15 at 23.26.24.jpeg', 'simbol-buddha', 330, 200, 860],
+  // detaliul de aproape din secțiunea „Ce este o mandala”
+  ['poze noi/WhatsApp Image 2026-11-15 at 22.42.44.jpeg', 'detaliu-stea', 561, 544, 926],
 ];
 
 await mkdir(OUT_WORKS, { recursive: true });

@@ -3,7 +3,7 @@
 // Un cuvânt pus între steluțe (*așa*) apare cursiv în titluri.
 //   este un spațiu nedespărțitor: ține cuvintele pe același rând.
 
-import { pretAfisat } from './site';
+import { pretAfisat, site } from './site';
 
 export const meta = {
   titlu: `Mandala pictată manual, cadou personalizat | ${pretAfisat}`,
@@ -160,7 +160,7 @@ export const dataNasterii = {
 export const proces = {
   titlu: 'Cum comanzi o mandala',
   pasi: [
-    { titlu: 'Mă suni sau îmi scrii', text: 'La 0742 001 605 sau la geo_valy@yahoo.com. Îți răspund eu și tot eu pictez mandala.' },
+    { titlu: 'Mă suni sau îmi scrii', text: `La ${site.telefon} sau la ${site.email}. Îți răspund eu și tot eu pictez mandala.` },
     { titlu: 'Vorbim despre mandala', text: 'Îmi povestești pentru cine e mandala și cu ce ocazie. Dacă nu ai simboluri în minte, îți propun eu câteva.' },
     { titlu: 'Pictez', text: 'Lucrez manual, punct cu punct, pe pânză. Îți spun cât durează când stabilim detaliile.' },
     { titlu: 'Ajunge la tine', text: 'Când e gata, o împachetez cu grijă și o primești așa cum ne-am înțeles.' },

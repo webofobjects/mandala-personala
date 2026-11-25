@@ -4,12 +4,12 @@ export const site = {
   url: 'https://mandalapersonala.ro',
   nume: 'Mandala personală',
 
-  pret: 299,
+  pret: 399,
   moneda: 'lei',
 
-  telefon: '0742 001 605',
-  telefonLink: '+40742001605',
-  email: 'geo_valy@yahoo.com',
+  telefon: '0742 036 249',
+  telefonLink: '+40742036249',
+  email: 'mandalapersonala@gmail.com',
 } as const;
 
 export const pretAfisat = `${site.pret} ${site.moneda}`;

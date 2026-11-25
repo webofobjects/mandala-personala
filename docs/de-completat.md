@@ -6,7 +6,7 @@ Site-ul spune doar lucruri adevărate pentru orice comandă. Ce urmează ține d
 
 Clienții le caută primele, iar acum lipsesc de pe pagină:
 
-- [ ] **Dimensiunea pânzei** pentru 299 lei (de exemplu 30 × 30 cm) și, dacă există, alte dimensiuni cu prețul lor. Prețul se judecă după mărime: la 30 × 30 cm, 299 lei e un preț ușor de apărat; la 40 × 40 cm e sub piață.
+- [ ] **Dimensiunea pânzei** pentru 399 lei (de exemplu 30 × 30 cm) și, dacă există, alte dimensiuni cu prețul lor. Prețul se judecă după mărime: la 40 × 40 cm, 399 lei e în linie cu piața (400–480 lei); la 30 × 30 cm e peste mandalele gata făcute (230–285 lei), dar se apără prin faptul că e pictată la comandă, pentru un singur om.
 - [ ] **Materialele**: culori acrilice? auriu metalizat? pânză pe șasiu de lemn? lac de protecție?
 - [ ] **Ce mai intră în preț**: semnătura pe lucrare, agățătoarea, o explicație scrisă a simbolurilor, ambalajul de cadou. Scrie pe site doar ce oferi la fiecare comandă.
 - [ ] **Termenul**: în cât timp e gata o mandala (de exemplu 7–14 zile lucrătoare) și până când se mai poate comanda pentru Crăciun.
@@ -64,7 +64,7 @@ Ce **nu** e nevoie, cât timp site-ul rămâne așa: banner de cookie-uri (site-
 
 **Subsol, după ce ai datele:**
 
-> [Nume și prenume / denumirea PFA] · [localitatea, județul] · Telefon: 0742 001 605 · E-mail: geo_valy@yahoo.com · [Nr. ONRC: F__/____/____] · [CUI: ________] · [Prețurile sunt finale; nu se adaugă TVA.]
+> [Nume și prenume / denumirea PFA] · [localitatea, județul] · Telefon: 0742 036 249 · E-mail: mandalapersonala@gmail.com · [Nr. ONRC: F__/____/____] · [CUI: ________] · [Prețurile sunt finale; nu se adaugă TVA.]
 
 **Pentru confirmarea comenzii și pentru fotografii:**
 

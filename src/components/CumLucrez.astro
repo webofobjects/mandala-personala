@@ -24,7 +24,7 @@ const puncte = (n: number) => {
     <ol role="list" class="relative grid gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
       {
         proces.pasi.map((p, i) => (
-          <li class="relative grid grid-cols-[3rem_1fr] gap-x-5 lg:block">
+          <li class="relative grid grid-cols-[3rem_minmax(0,1fr)] gap-x-5 lg:block">
             <span class="relative z-10 flex size-12 items-center justify-center rounded-full border border-gold bg-paper lg:mx-0" aria-hidden="true">
               <svg viewBox="0 0 48 48" width="48" height="48">
                 {puncte(i + 1).map((d) => (

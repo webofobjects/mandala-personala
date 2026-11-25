@@ -35,7 +35,7 @@ const actualizat = new Intl.DateTimeFormat('ro-RO', { day: 'numeric', month: 'lo
     <div class="md:col-span-4">
       <p class="font-display text-lg text-gold-light italic">{subsol.comenziTitlu}</p>
       <p class="mt-3"><a href={telHref} class="text-xl text-paper tabular-nums hover:text-gold-light">{site.telefon}</a></p>
-      <p class="mt-1"><a href={mailtoHref} class="break-all text-paper hover:text-gold-light">{site.email}</a></p>
+      <p class="mt-1"><a href={mailtoHref} class="[overflow-wrap:anywhere] text-paper hover:text-gold-light">{site.email.split('@')[0]}<wbr />@{site.email.split('@')[1]}</a></p>
     </div>
   </div>
   <div class="border-t border-white/10">

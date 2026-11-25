@@ -16,7 +16,7 @@ import Footer from '../components/Footer.astro';
 
 import { getImage } from 'astro:assets';
 import { meta, intrebari } from '../data/continut';
-import { site } from '../data/site';
+import { site, dimensiuni, formatDimensiune } from '../data/site';
 import { lucrare } from '../data/lucrari';
 import { plain } from '../lib/text';
 
@@ -65,14 +65,15 @@ const jsonLd = {
       image: [...imaginiProdus, `${site.url}/og.jpg`],
       category: 'Tablouri pictate manual',
       brand: { '@id': `${site.url}/#organizatie` },
-      offers: {
+      offers: dimensiuni.map((d) => ({
         '@type': 'Offer',
-        price: site.pret,
+        name: `Mandala pictată manual, ${formatDimensiune(d.latura)}`,
+        price: d.pret,
         priceCurrency: 'RON',
         availability: 'https://schema.org/MadeToOrder',
         url: `${site.url}/#pret`,
         seller: { '@id': `${site.url}/#organizatie` },
-      },
+      })),
     },
     {
       '@type': 'FAQPage',

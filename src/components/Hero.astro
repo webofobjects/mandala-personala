@@ -3,7 +3,7 @@ import { Picture } from 'astro:assets';
 import Eticheta from './Eticheta.astro';
 import DotHalo from './DotHalo.astro';
 import { hero } from '../data/continut';
-import { pretAfisat } from '../data/site';
+import { pretMinim, site } from '../data/site';
 import { lucrari, lucrare } from '../data/lucrari';
 import { accent } from '../lib/text';
 
@@ -30,7 +30,10 @@ const latimi = [...new Set([480, 720, 960, 1200].filter((w) => w <= imagine.widt
       </div>
 
       <div class="mt-10 flex items-center gap-5 border-t border-line pt-6">
-        <p class="shrink-0 font-display text-[2.4rem] leading-none tracking-[-0.02em] text-ink">{pretAfisat}</p>
+        <p class="shrink-0 font-display leading-none text-ink">
+          <span class="block text-[1rem] italic text-ink-2">de la</span>
+          <span class="text-[2.4rem] tracking-[-0.02em]">{pretMinim} {site.moneda}</span>
+        </p>
         <p class="max-w-[17rem] text-[0.95rem] leading-snug text-ink-2" set:html={accent(hero.pretNota)} />
       </div>
     </div>

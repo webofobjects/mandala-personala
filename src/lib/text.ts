@@ -5,7 +5,8 @@ const escape = (s: string) =>
  * Transformă *cuvinte* în <em>cuvinte</em> (italic în titluri). Restul textului este escapat.
  */
 export function accent(text: string): string {
-  return escape(text).replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  // o adresă de e-mail lungă se poate rupe înainte de @, nu în mijlocul ei
+  return escape(text).replace(/\*([^*]+)\*/g, '<em>$1</em>').replace(/@/g, '<wbr>@');
 }
 
 /** Textul fără marcajele de accent — pentru <title>, alt etc. */

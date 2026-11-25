@@ -96,15 +96,32 @@ await mkdir(PUBLIC, { recursive: true });
 // (fracțiuni din lățime/înălțime: sus, dreapta, jos, stânga).
 const margini = {
   '3.jpeg': [0.058, 0.04, 0.045, 0.04],
-  '5.jpeg': [0.03, 0.03, 0.015, 0.047],
   '17.jpeg': [0.035, 0.005, 0.03, 0.027],
   '2.jpeg': [0.015, 0.02, 0.016, 0.035],
   '24.jpeg': [0.008, 0.012, 0, 0.017],
 };
 
+// Pânze fotografiate puțin din unghi: decupăm exact fața pânzei (în pixeli: stânga, sus, dreapta, jos)
+// și o readucem la pătrat, ca să încapă întreagă într-o ramă pătrată.
+const patrate = {
+  '5.jpeg': [36, 28, 694, 718],
+};
+
 for (const [file, slug] of Object.entries(works)) {
   const src = path.join(SRC, file);
   const dst = path.join(OUT_WORKS, slug + '.jpg');
+  const p = patrate[file];
+  if (p) {
+    const [l, t, r, b] = p;
+    const latura = Math.round((r - l + (b - t)) / 2);
+    await sharp(src)
+      .rotate()
+      .extract({ left: l, top: t, width: r - l, height: b - t })
+      .resize(latura, latura, { fit: 'fill' })
+      .jpeg({ quality: 92, mozjpeg: true })
+      .toFile(dst);
+    continue;
+  }
   const m = margini[file];
   if (!m) {
     await copyFile(src, dst);

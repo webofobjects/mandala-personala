@@ -53,7 +53,7 @@ Aproape nimeni nu pictează. Găsești: calcule gratuite online (e-mandala.ro, l
 
 Un singur concurent direct găsit: Ezo-Gift-Shop (totceeaceeste.ro) pictează cu puncte, pe pânză, după nume și data nașterii, în 20, 30 sau 40 cm, fără prețuri afișate (comenzi pe OLX sau e-mail). Promite că mandala aduce calm și pace, „vibrează” cu omul și acționează asupra corpului și a psihicului.
 
-Pentru comparație, mandalele decorative cu puncte, fără dată (Ezera), costă cam 230–285 lei la 30 cm și 950–1.120 lei la 60 cm. La 30 × 30 cm, prețul de 399 de lei e peste mandalele gata făcute, dar e pentru o lucrare pictată la comandă; la 40 × 40 cm e în linie cu piața.
+Pentru comparație, mandalele decorative cu puncte, fără dată (Ezera), costă cam 230–285 lei la 30 cm și 950–1.120 lei la 60 cm. Prețurile de pe site (199 de lei la 20 cm, 399 de lei la 30 cm, 499 de lei la 40 cm) sunt pentru lucrări pictate la comandă.
 
 Aproape toți promit destin, „misiune”, energie, vibrații, deblocări sau efecte asupra sănătății. Dintre site-urile românești găsite, doar e-mandala.ro și sfat.info.ro (ambele legate de Vlad T. Popescu) spun deschis că e subiectiv și nedovedit științific.
 
@@ -98,7 +98,7 @@ Scrie cu diacritice; Google găsește pagina și când oamenii caută fără. Ci
 
 1. Folosești calculul de la punctul 1 sau o regulă proprie? Textul descrie exact ce faci.
 2. Ce tabel de culori: cel obișnuit sau al tău? Ce culoare primește 0? Unde intră auriul (contur, fundal, în locul galbenului)?
-3. Ce formă și ce mărime: hexagonul din 6 triunghiuri (816 puncte) sau 16 cercuri pe pânză rotundă? Încape frumos pe pânza de 399 de lei?
+3. Ce formă și ce mărime: hexagonul din 6 triunghiuri (816 puncte) sau 16 cercuri pe pânză rotundă? Încape frumos pe pânza de 20 cm, sau merge doar pe 30 și 40 cm?
 4. Iei și prenumele? Ești de acord cu Ă/Â → A, Î → I, Ș → S, Ț → T?
 5. Îi dai clientului calculul în scris (schița cu cifre și culori, pe hârtie sau ca poză)? Explici și sensurile din numerologie sau doar de unde vine fiecare culoare?
 6. Prețul și termenul rămân aceleași?

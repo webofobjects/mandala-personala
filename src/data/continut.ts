@@ -3,11 +3,11 @@
 // Un cuvânt pus între steluțe (*așa*) apare cursiv în titluri.
 //   este un spațiu nedespărțitor: ține cuvintele pe același rând.
 
-import { pretAfisat, site } from './site';
+import { pretAfisat, pretMinim, site, dimensiuni, formatDimensiune, pretInFraza, listaLaturi, listaDimensiuni } from './site';
 
 export const meta = {
   titlu: `Mandala pictată manual, cadou personalizat | ${pretAfisat}`,
-  descriere: `Tablou mandala pictat manual pe pânză, pentru tine sau cadou personalizat. Alegem împreună culorile și simbolurile sau pornim de la data nașterii. ${pretAfisat}.`,
+  descriere: `Mandala pictată manual pe pânză de ${listaLaturi}, pentru tine sau cadou personalizat, cu simboluri alese împreună sau după data nașterii. De la ${pretMinim} ${site.moneda}.`,
 };
 
 // În ordinea secțiunilor de pe pagină.
@@ -26,10 +26,10 @@ export const nav = [
 export const hero = {
   eticheta: 'Mandale pictate manual, la comandă',
   titlu: 'Mandala ta, pictată punct cu punct',
-  text: 'Pictez manual, pe pânză, mandale pentru tine sau ca un cadou pentru cineva drag. Pornim de la un om sau de la o zi care contează, iar culorile și simbolurile le alegem împreună.',
+  text: 'Pictez manual, pe pânză, mandale pentru tine sau de oferit cadou cuiva drag. Pornim de la un om sau de la o zi care contează, iar culorile și simbolurile le alegem împreună.',
   ctaPrincipal: 'Comandă o mandala',
   ctaSecundar: 'Vezi lucrările',
-  pretNota: 'o mandala pictată manual pe pânză, pentru tine sau de făcut cadou',
+  pretNota: `pânză de ${listaLaturi}, pictată manual, pentru tine sau de oferit cadou`,
 };
 
 export const ceEste = {
@@ -169,7 +169,7 @@ export const proces = {
 
 export const pret = {
   titlu: 'Cât costă o mandala pictată manual?',
-  subtitlu: 'pentru o mandala pictată manual pe pânză, pentru tine sau de făcut cadou',
+  subtitlu: 'O mandala pictată manual pe pânză, în trei mărimi, pentru tine sau de oferit cadou:',
   includeTitlu: 'Ce intră în preț',
   include: [
     'discuția despre mandala: pentru cine e și ce vrei să-ți amintească',
@@ -185,6 +185,12 @@ export const pret = {
 export const intrebari = {
   titlu: 'Întrebări frecvente',
   lista: [
+    {
+      q: 'Ce mărimi are mandala și cât costă?',
+      a: `Pictez pe pânză în trei mărimi: ${dimensiuni
+        .map((d, i) => `${i === dimensiuni.length - 1 ? 'iar ' : ''}${formatDimensiune(d.latura)} costă ${pretInFraza(d.pret)}`)
+        .join(', ')}.`,
+    },
     {
       q: 'Trebuie să știu dinainte ce simboluri vreau?',
       a: 'Nu. Îmi poți spune doar pentru cine e și ce vrei să-ți amintească. Îți propun eu simboluri și îți spun ce înseamnă fiecare, iar tu alegi.',
@@ -234,6 +240,7 @@ export const contact = {
   listaTitlu: 'Ca să pornim, spune-mi:',
   lista: [
     'pentru cine este: pentru tine sau cadou pentru cineva drag',
+    `mărimea pânzei: ${listaDimensiuni}`,
     'data nașterii, dacă vrei o mandala după data nașterii',
     'ocazia, dacă există: o zi de naștere, o nuntă, un botez',
     'ce vrei să-ți amintească',
@@ -251,7 +258,7 @@ export const contact = {
 };
 
 export const subsol = {
-  text: 'Mandale personale pictate de mână pe pânză, la comandă, pentru tine sau de făcut cadou.',
+  text: 'Mandale personale pictate de mână pe pânză, la comandă, pentru tine sau de oferit cadou.',
   comenziTitlu: 'Comenzi',
   actualizat: 'Pagină actualizată la',
 };

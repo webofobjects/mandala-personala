@@ -6,7 +6,7 @@ Site-ul spune doar lucruri adevărate pentru orice comandă. Ce urmează ține d
 
 Clienții le caută primele, iar acum lipsesc de pe pagină:
 
-- [ ] **Dimensiunea pânzei** pentru 399 lei (de exemplu 30 × 30 cm) și, dacă există, alte dimensiuni cu prețul lor. Prețul se judecă după mărime: la 40 × 40 cm, 399 lei e în linie cu piața (400–480 lei); la 30 × 30 cm e peste mandalele gata făcute (230–285 lei), dar se apără prin faptul că e pictată la comandă, pentru un singur om.
+- [x] **Mărimile și prețurile**: 20 × 20 cm – 199 lei, 30 × 30 cm – 399 lei, 40 × 40 cm – 499 lei (se schimbă în `src/data/site.ts`, lista `dimensiuni`). Pentru comparație, la cercetare (noiembrie 2026) mandalele cu puncte gata făcute costau 230–285 lei la 30 cm și 400–480 lei la 40 cm.
 - [ ] **Materialele**: culori acrilice? auriu metalizat? pânză pe șasiu de lemn? lac de protecție?
 - [ ] **Ce mai intră în preț**: semnătura pe lucrare, agățătoarea, o explicație scrisă a simbolurilor, ambalajul de cadou. Scrie pe site doar ce oferi la fiecare comandă.
 - [ ] **Termenul**: în cât timp e gata o mandala (de exemplu 7–14 zile lucrătoare) și până când se mai poate comanda pentru Crăciun.
